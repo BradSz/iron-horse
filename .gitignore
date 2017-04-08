@@ -2,6 +2,7 @@ Makefile
 CMakeFiles
 CMakeCache.txt
 *.cmake
+*.orig
 bin/
 build/
 staging/
