@@ -10,4 +10,4 @@ configure_file (
   )
 
 include_directories("${PROJECT_BINARY_DIR}")
-add_executable(bin/scratch src/main.cpp)
+add_executable(../bin/scratch ../src/main.cpp)
