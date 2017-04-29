@@ -5,7 +5,10 @@
 #include <thread>
 #include <unistd.h>
 
+#include <iron/core.h>
+
 #include "CsvGen.hpp"
+#include <iron/core/TQueue.hpp>
 
 struct rez {
   rez (int64_t inX=0, int64_t inY=0) : X(inX), Y(inY) {}
@@ -66,18 +69,35 @@ void csver()
   std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
 
+void queuer()
+{
+  TQueue<std::string> tq(2);
+
+  std::vector<std::string> popped(10);
+  std::cout <<"True:  " << tq.push_back("ASDF")         << std::endl;
+  std::cout <<"True:  " << tq.push_back("JKL;", 10)     << std::endl;
+  std::cout <<"False: " << tq.push_back("QWER", 10)     << std::endl;
+  std::cout <<"True:  " << tq.pop_front(popped[0])      << std::endl;
+  std::cout <<"True:  " << tq.pop_front(popped[1])      << std::endl;
+  std::cout <<"False: " << tq.pop_front(popped[2], 10)  << std::endl;
+
+  for (auto x : popped) std::cout << x << std::endl;
+}
+
 int main(int argc, char** argv)
 {
-  ringer r(-5, 20);
+  // ringer r(-5, 20);
+  //
+  // std::list<rez>::const_iterator itr;
+  // std::list<rez> vals = r.compute(15, 25);
+  // for (itr = vals.begin(); itr != vals.end(); ++itr)
+  // {
+  //   std::cout << "X: " << itr->X << " Y:" << itr->Y << std::endl;
+  // }
+  //
+  // csver();
 
-  std::list<rez>::const_iterator itr;
-  std::list<rez> vals = r.compute(15, 25);
-  for (itr = vals.begin(); itr != vals.end(); ++itr)
-  {
-    std::cout << "X: " << itr->X << " Y:" << itr->Y << std::endl;
-  }
-
-  csver();
+  queuer();
 
   return 0;
 }
