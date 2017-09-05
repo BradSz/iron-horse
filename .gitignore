@@ -1,6 +1,7 @@
 Makefile
 CMakeFiles
 CMakeCache.txt
+cscfg.h
 *.cmake
 *.orig
 bin/
