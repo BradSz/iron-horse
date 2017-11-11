@@ -30,3 +30,14 @@
 *.exe
 *.out
 *.app
+
+# CMake build
+Makefile
+CMakeFiles
+CMakeCache.txt
+cscfg.h
+*.cmake
+*.orig
+bin/
+build/
+staging/
