@@ -9,7 +9,7 @@ mkdir -p bin build
 
 # Build Makefile(s)
 cd "$dir/build"
-cmake ..
+cmake "$dir"
 
 # Execute Makefile(s)
 cd "$dir"
