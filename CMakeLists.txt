@@ -9,12 +9,14 @@ configure_file (
   "${PROJECT_BINARY_DIR}/cscfg.h"
   )
 
-SET(CMAKE_CXX_FLAGS "-std=c++0x")
-
+set(CMAKE_CXX_FLAGS "-std=c++0x")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # Source root
 include_directories(src)
-add_executable(bin/scratch src/main.cpp)
+add_executable(scratch src/main.cpp)
 
 # Test root
 include_directories(test)
-add_executable(bin/tester  test/test.main.cpp)
+add_executable(tester  test/test.main.cpp)
