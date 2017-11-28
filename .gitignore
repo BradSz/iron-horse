@@ -41,3 +41,8 @@ cscfg.h
 bin/
 build/
 staging/
+
+# Tags/CScope
+tags
+TAGS
+cscope.*
