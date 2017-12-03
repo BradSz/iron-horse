@@ -57,14 +57,12 @@ protected:
   Keeper()
     : mQueue(),
       mLatestDetails(),
-//      mOrder(),
       mLastWidth(0)
   { }
 
   std::queue<std::pair<std::string,std::string> > mQueue;
 
   std::map<std::string,std::string> mLatestDetails;
-//  std::vector<std::string> mOrder;
   int mLastWidth;
 };
 
