@@ -1,5 +1,8 @@
 #pragma once
 
+// Boost
+#include <boost/thread.hpp>
+
 // STD and STL
 #include <chrono>
 #include <climits>
@@ -17,3 +20,6 @@
 #include <condition_variable>
 #include <mutex>
 #include <thread>
+
+// Iron Utilities
+#include <iron/core/Logger.hpp>

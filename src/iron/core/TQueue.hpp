@@ -4,9 +4,9 @@
 
 template <typename T>
 class TQueue {
-  typedef std::shared_mutex Mutex;
-  typedef std::shared_lock<Mutex> ReadLock;
-  typedef std::unique_lock<Mutex> WriteLock;
+  typedef boost::shared_mutex Mutex;
+  typedef boost::shared_lock<Mutex> ReadLock;
+  typedef boost::unique_lock<Mutex> WriteLock;
 public:
   TQueue(uint64_t maxSize=std::numeric_limits<uint64_t>::max())
     : MaxSize(maxSize), mQueue(), mMutex(), mPushedNotifier(), mPoppedNotifier() {}
@@ -16,7 +16,7 @@ public:
   bool push_back(const T& t, uint64_t inTimeoutMs=std::numeric_limits<uint64_t>::max()) {
     WriteLock padlock(mMutex);
 
-    auto timeout       = std::chrono::milliseconds(inTimeoutMs);
+    auto timeout       = boost::chrono::milliseconds(inTimeoutMs);
     auto checkHasSpace = [this] { return mQueue.size() < MaxSize; };
 
     if (mPoppedNotifier.wait_for(padlock, timeout, checkHasSpace)) {
@@ -32,7 +32,7 @@ public:
   bool pop_front (T& t, uint64_t inTimeoutMs=std::numeric_limits<uint64_t>::max()) {
     WriteLock padlock(mMutex);
 
-    auto timeout      = std::chrono::milliseconds(inTimeoutMs);
+    auto timeout      = boost::chrono::milliseconds(inTimeoutMs);
     auto checkHasItem = [this] { return !mQueue.empty(); };
 
     if (mPushedNotifier.wait_for(padlock, timeout, checkHasItem)) {
@@ -52,8 +52,8 @@ public:
   uint64_t MaxSize;
 
 private:
-  std::deque<T>           mQueue;
-  mutable std::mutex      mMutex;
-  std::condition_variable mPushedNotifier;
-  std::condition_variable mPoppedNotifier;
+  std::deque<T>                 mQueue;
+  mutable Mutex                 mMutex;
+  boost::condition_variable_any mPushedNotifier;
+  boost::condition_variable_any mPoppedNotifier;
 };
