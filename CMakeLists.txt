@@ -1,5 +1,6 @@
 cmake_minimum_required (VERSION 2.6)
 project (ironhorse CXX)
+enable_testing()
 
 # set(CMAKE_CXX_STANDARD 11)
 # set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -27,7 +28,17 @@ add_executable(scratch src/main.cpp)
 
 # Test root
 include_directories(test)
-add_executable(tester  test/test.main.cpp)
+file(GLOB_RECURSE TESTCPPS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} test/*.cpp)
+foreach(testcpp ${TESTCPPS})
+  get_filename_component(testname ${testcpp} NAME_WE)
+  add_executable(${testname} ${testcpp})
+  target_link_libraries(${testname} ${Boost_LIBRARIES})
+  add_test(
+    NAME              ${testname}
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+    COMMAND           ${CMAKE_BINARY_DIR}/bin/${testname}
+  )
+endforeach(testcpp)
 
 # Linker settings
 target_link_libraries(scratch LINK_PUBLIC ${Boost_LIBRARIES})

@@ -41,6 +41,7 @@ cscfg.h
 bin/
 build/
 staging/
+Testing/
 
 # Tags/CScope
 tags
