@@ -5,13 +5,13 @@
 
 BOOST_AUTO_TEST_SUITE(boxed)
 
-struct Fixture : public iron::boxed_magic<std::string> {
+struct Fixture : public iron::box<std::string> {
     Fixture()
-      : iron::boxed_magic<std::string>("BaseText"),
+      : iron::box<std::string>("BaseText"),
         BaseText("BaseText")
     {
       // Sanity check that test setup is right/spelled correctly
-      BOOST_REQUIRE_EQUAL(BaseText, *tux);
+      BOOST_REQUIRE_EQUAL(BaseText, *mData);
     }
 
     std::string BaseText;
