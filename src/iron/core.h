@@ -2,6 +2,8 @@
 
 // Boost
 #include <boost/thread.hpp>
+#include <boost/thread/locks.hpp>
+#include <boost/thread/shared_mutex.hpp>
 
 // STD and STL
 #include <chrono>
@@ -23,3 +25,6 @@
 
 // Iron Utilities
 #include <iron/core/Logger.hpp>
+
+// Convenience Typedefs
+#include <iron/core/Typedefs.hpp>
