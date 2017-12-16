@@ -20,6 +20,11 @@ struct View : private std::shared_ptr<const T> {
     using std::shared_ptr<const T>::operator*;
     using std::shared_ptr<const T>::operator->;
 
+    void release() {
+      std::shared_ptr<const T>::reset();
+      mReadLock.unlock();
+    }
+
   protected:
     std::shared_ptr<iron::Mutex> mMutex;
     iron::ReadLock               mReadLock;
@@ -40,6 +45,11 @@ struct Mut : private std::shared_ptr<T> {
     using std::shared_ptr<T>::get;
     using std::shared_ptr<T>::operator*;
     using std::shared_ptr<T>::operator->;
+
+    void release() {
+      std::shared_ptr<T>::reset();
+      mWriteLock.unlock();
+    }
 
   protected:
     std::shared_ptr<iron::Mutex> mMutex;
