@@ -5,9 +5,9 @@
 
 BOOST_AUTO_TEST_SUITE(boxed)
 
-struct Fixture : public iron::box<std::string> {
+struct Fixture : public iron::Box<std::string> {
     Fixture()
-      : iron::box<std::string>("BaseText"),
+      : iron::Box<std::string>(std::shared_ptr<std::string>(new std::string("BaseText"))),
         BaseText("BaseText")
     {
       // Sanity check that test setup is right/spelled correctly
@@ -27,6 +27,16 @@ BOOST_FIXTURE_TEST_CASE(CloneTest, Fixture)
   // Verify modifications to cloned data do not affect original
   cloneData->clear();
   BOOST_CHECK_NE(BaseText, *cloneData);
+}
+
+BOOST_FIXTURE_TEST_CASE(MutTest, Fixture)
+{
+  std::string MutateTo("Mutation");
+
+  mut_type mut = this->mut();
+
+  // Verify mutable data is the same
+  BOOST_CHECK_EQUAL(BaseText, *mut);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
