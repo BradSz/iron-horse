@@ -1,0 +1,11 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# Set C++ source files to auto-format crlf
+*.cpp text
+*.cc  text
+*.c   text
+*.hpp text
+*.hh  text
+*.h   text
+
