@@ -8,7 +8,7 @@
 
   #define LOG_TRACE(msg) (LOG_BASE(__FILE__, __LINE__, __func__, "TRACE", msg))
   #define LOG_DEBUG(msg) (LOG_BASE(__FILE__, __LINE__, __func__, "DEBUG", msg))
-  #define LOG_INFO (msg) (LOG_BASE(__FILE__, __LINE__, __func__, "INFO ", msg))
+  #define LOG_INFO(msg)  (LOG_BASE(__FILE__, __LINE__, __func__, "INFO ", msg))
   #define LOG_ERROR(msg) (LOG_BASE(__FILE__, __LINE__, __func__, "ERROR", msg))
   #define LOG_FATAL(msg) (LOG_BASE(__FILE__, __LINE__, __func__, "FATAL", msg))
 #endif
