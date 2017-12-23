@@ -24,7 +24,12 @@ find_package(Boost 1.54 COMPONENTS program_options thread system chrono REQUIRED
 
 # Source root
 include_directories(src)
-add_executable(scratch src/main.cpp)
+add_executable(scratch   src/main.cpp)
+add_executable(primecalc src/iron/math/PrimeCalculator.cpp)
+
+# Linker settings
+target_link_libraries(scratch   LINK_PUBLIC ${Boost_LIBRARIES})
+target_link_libraries(primecalc LINK_PUBLIC ${Boost_LIBRARIES})
 
 # Test root
 include_directories(test)
@@ -39,6 +44,3 @@ foreach(testcpp ${TESTCPPS})
     COMMAND           ${CMAKE_BINARY_DIR}/bin/${testname}
   )
 endforeach(testcpp)
-
-# Linker settings
-target_link_libraries(scratch LINK_PUBLIC ${Boost_LIBRARIES})
