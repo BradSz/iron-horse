@@ -2,6 +2,7 @@
 
 // Boost
 #include <boost/asio/io_service.hpp>
+//#include <boost/core/nocopyable.hpp>
 #include <boost/thread.hpp>
 #include <boost/thread/locks.hpp>
 #include <boost/thread/shared_mutex.hpp>
@@ -26,8 +27,10 @@
 #include <mutex>
 #include <thread>
 
+// Convenience Typedefs (after external files are included)
+#include <iron/core/Typedefs.hpp>
+
 // Iron Utilities
+#include <iron/threading/Boxed.hpp>
 #include <iron/core/Logger.hpp>
 
-// Convenience Typedefs
-#include <iron/core/Typedefs.hpp>
