@@ -4,7 +4,7 @@
 
 #ifndef IRON_LOGGER
   #define IRON_LOGGER
-  #define LOG_BASE(file, line, context, level, msg) (std::cout << level << " " << file << ":" << line << " " << context << " - " << msg << std::endl)
+  #define LOG_BASE(file, line, context, level, msg) (std::cout << std::this_thread::get_id() << ":" << level << " " << file << ":" << line << " " << context << " - " << msg << std::endl)
 
   #define LOG_TRACE(msg) (LOG_BASE(__FILE__, __LINE__, __func__, "TRACE", msg))
   #define LOG_DEBUG(msg) (LOG_BASE(__FILE__, __LINE__, __func__, "DEBUG", msg))
