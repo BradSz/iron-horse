@@ -19,7 +19,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-find_package(Boost 1.54 COMPONENTS program_options thread system chrono REQUIRED)
+find_package(Boost 1.54 COMPONENTS program_options thread system chrono log REQUIRED)
 
 # Source root
 include_directories(src)
