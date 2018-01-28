@@ -6,7 +6,7 @@ namespace iron {
 
 template <typename T>
 struct View : private std::shared_ptr<const T> {
-    View(const std::shared_ptr<T> inData,
+    View(const std::shared_ptr<T>& inData,
          const std::shared_ptr<iron::Mutex>& inMutex)
       : std::shared_ptr<const T>(inData),
         mMutex(inMutex),
@@ -32,7 +32,7 @@ struct View : private std::shared_ptr<const T> {
 
 template <typename T>
 struct Mut : private std::shared_ptr<T> {
-    Mut(const std::shared_ptr<T> inData,
+    Mut(const std::shared_ptr<T>& inData,
         const std::shared_ptr<iron::Mutex>& inMutex)
       : std::shared_ptr<T>(inData),
         mMutex(inMutex),
