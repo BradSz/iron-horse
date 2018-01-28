@@ -4,7 +4,7 @@
 int main(int argc, char** argv) {
 
   // Determine if requested value is prime
-  iron::PrimeCalculator pc;
+  iron::math::PrimeCalculator pc;
   for (uint64_t trial = 0; trial < 10; ++trial) {
     if(pc.isPrime(trial)) {
       std::cout << trial << " is prime" << std::endl;
