@@ -17,8 +17,10 @@ struct View : private std::shared_ptr<const T> {
     }
 
     using std::shared_ptr<const T>::get;
-    using std::shared_ptr<const T>::operator*;
-    using std::shared_ptr<const T>::operator->;
+    using std::shared_ptr<const T>::operator *;
+    using std::shared_ptr<const T>::operator ->;
+    using std::shared_ptr<const T>::operator bool;
+    using std::shared_ptr<const T>::use_count;
 
     void release() {
       std::shared_ptr<const T>::reset();
@@ -43,8 +45,10 @@ struct Mut : private std::shared_ptr<T> {
     }
 
     using std::shared_ptr<T>::get;
-    using std::shared_ptr<T>::operator*;
-    using std::shared_ptr<T>::operator->;
+    using std::shared_ptr<T>::operator *;
+    using std::shared_ptr<T>::operator ->;
+    using std::shared_ptr<T>::operator bool;
+    using std::shared_ptr<T>::use_count;
 
     void release() {
       std::shared_ptr<T>::reset();
@@ -62,8 +66,24 @@ struct Box {
     typedef View<T>  view_type;
     typedef Mut <T>   mut_type;
 
-    Box(const std::shared_ptr<T>& inData)
-      : mData(inData), mMutex(new iron::Mutex()) { }
+    Box()          : mData(),       mMutex()                  { }
+
+    Box(T* inData) : mData(inData), mMutex(new iron::Mutex()) { }
+
+    ~Box() {
+      mMutex.reset();
+      mData.reset();
+    }
+
+    void reset() {
+      mData.reset();
+      mMutex.reset();
+    }
+
+    void reset(T* t) {
+      mData.reset(t);
+      mMutex.reset(new iron::Mutex());
+    }
 
     template<typename X>
     static Box<X> fromCopy(const T& inData) {

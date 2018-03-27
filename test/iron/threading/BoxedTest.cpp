@@ -7,7 +7,7 @@ BOOST_AUTO_TEST_SUITE(boxed)
 
 struct Fixture : public iron::Box<std::string> {
     Fixture()
-      : iron::Box<std::string>(std::shared_ptr<std::string>(new std::string("BaseText"))),
+      : iron::Box<std::string>(new std::string("BaseText")),
         BaseText   ("BaseText"),
         MutatedText("MutatedText")
     {
@@ -61,6 +61,25 @@ BOOST_FIXTURE_TEST_CASE(MutTest, Fixture)
   BOOST_CHECK_EQUAL(MutatedText       , *mData      );
   BOOST_CHECK_EQUAL(MutatedText       , *mut1       );
   BOOST_CHECK_EQUAL(MutatedText.size(), mut1->size());
+}
+
+BOOST_AUTO_TEST_CASE(RefCountTest)
+{
+  iron::Box<int> b(new int(7));
+
+  iron::View<int> v1 = b.view();
+  BOOST_CHECK_EQUAL(2, v1.use_count());
+
+  iron::View<int> v2 = b.view();
+  BOOST_CHECK_EQUAL(3, v2.use_count());
+
+  v1.release();
+  BOOST_CHECK_EQUAL(0, v1.use_count());
+  BOOST_CHECK_EQUAL(2, v2.use_count());
+
+  b.reset();
+  BOOST_CHECK_EQUAL(1, v2.use_count());
+  BOOST_CHECK_EQUAL(7, *v2);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
