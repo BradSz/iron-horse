@@ -5,5 +5,7 @@ cd "$dir"
 
 inotifywait -mr src/ test/ |
   while read path action file; do
+    reset
+    date -Iseconds
     make all test
   done
